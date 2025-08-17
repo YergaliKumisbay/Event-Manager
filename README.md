@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Event Manager (Next.js 14+)
 
-## Getting Started
+Минимальный и аккуратный менеджер мероприятий: просмотр, поиск/фильтрация/сортировка, создание/редактирование/удаление, избранное, экспорт в JSON, пагинация. Данные хранятся локально (без реального бэкенда).
 
-First, run the development server:
+## Стек
+- **Next.js 14+ (App Router)**
+- **TypeScript**
+- **CSS Modules** (+ глобальные дизайн-токены в `globals.css`)
+- **React Context + useReducer** (сохранение в `localStorage`)
 
+## Что реализовано по ТЗ
+- [x] Список мероприятий карточками (название, описание, дата/время, категория, статус)
+- [x] Создание/редактирование/удаление (с подтверждением в модалке)
+- [x] Валидация формы: название обязательно, дата не может быть в прошлом
+- [x] Фильтр по категории и статусу
+- [x] Сортировка по названию/дате (asc/desc)
+- [x] Поиск по названию/описанию
+- [x] Избранное (+ отдельная вкладка)
+- [x] Экспорт списка в JSON
+- [x] Пагинация с управлением размером страницы
+- [x] Адаптивный интерфейс, аккуратные фокус-состояния
+- [x] RU-локализация интерфейса
+
+## Быстрый старт
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Установка
+npm i
+
+# Запуск разработки
+npm dev
+
+# Открыть
+http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> Если у вас используется структура `src/`, файлы лежат в `src/app/*`. Если без `src/`, то в `app/*`. Оба варианта поддерживаются — проверьте импорты.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Архитектура и ключевые файлы
+- `app/layout.tsx` — каркас приложения, подключение `globals.css`, провайдер `EventProvider`, Header/Main/Footer.
+- `app/context/EventContext.tsx` — состояние и редьюсер (`ADD/UPDATE/DELETE/TOGGLE_FAVORITE/INIT`), синхронизация с `localStorage`.
+- `types/event.ts` — строгие типы `Event`, `EventFormData`, `Category`, `Status`.
+- `app/events/page.tsx` — список, KPI-карточки, поиск/фильтры/сортировка/экспорт.
+- `app/events/new/page.tsx` — создание события.
+- `app/events/[id]/page.tsx` — редактирование события (исправлено: клиентский компонент, нормализация даты `toISOString`).
+- `app/components/EventList/*` — список, карточка, пагинация, подтверждение удаления.
+- `app/components/EventForm/*` — форма с валидацией и аккуратными селектами/инпутами.
+- `app/components/layout/Header/*` — сдержанный header: CSS Grid-навигация, активный пункт, sticky, мобильное меню, a11y.
+- `lib/utils.ts` — экспорт данных в JSON.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Данные и хранение
+- Источник данных — **`localStorage`** (ключ `event-manager:events`).
+- При первом запуске подставляются сид-данные.
+- Статусы автоматически обновляются: если дата прошла — событие помечается **«Завершено»**.
 
-## Learn More
+## UI/UX и доступность
+- Консистентные **кнопки** (`primary/secondary/danger`) и **селекты** в едином стиле.
+- **Пагинация** локализована: «Назад/Вперёд», «Стр. N из M».
+- Карточки: чипы категории/статуса, лёгкие тени, внятные hover/фокус состояния.
+- Header: «skip to content», `aria`-атрибуты, поддержка мобильного меню.
 
-To learn more about Next.js, take a look at the following resources:
+## Глобальные дизайн-токены
+Единые переменные вынесены в `app/globals.css` (или `src/app/globals.css`). Убедитесь, что в `layout.tsx` есть `import './globals.css'`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```css
+:root {
+  /* фоны */
+  --background: #ffffff;
+  --background-secondary: #f8fafc;
+  --bg: var(--background);
+  --bg-2: var(--background-secondary);
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+  /* текст */
+  --foreground: #0b1020;
+  --fg: var(--foreground);
+  --muted: #6b7280;
 
-## Deploy on Vercel
+  /* бренд/границы/поверхности */
+  --brand: #0070f3;
+  --brand-2: #0a66ff;
+  --card: #ffffff;
+  --border: #e5e7eb;
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  /* эффекты */
+  --ring: rgba(0, 112, 243, 0.25);
+  --shadow: 0 6px 22px rgba(10,16,32,.08);
+}
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0b1220;
+    --background-secondary: #0f172a;
+    --fg: #e5e7eb;
+    --muted: #9ca3af;
+    --card: #0f172a;
+    --border: #1f2937;
+    --shadow: 0 8px 30px rgba(0,0,0,.45);
+  }
+}
+```
+
+> **Важно:** в CSS-модулях не используйте «голые» селекторы (`input`, `select` и т.п.). Всегда привязывайте их к локальному классу: `.formGroup input { … }` — это устраняет ошибки «Selector is not pure».
+
+## Скрипты и качество кода (опционально)
+Рекомендуется добавить:
+- **ESLint + Prettier**,
+- **Husky + lint-staged** (проверка перед коммитом).
+
+## Деплой
+- Рекомендуемый деплой — **Vercel**. Проект не зависит от внешних API и готов к статическому хостингу.
+
+## Известные ограничения
+- Данные только в `localStorage`. Обновление страницы на другом устройстве/браузере не синхронизирует события.
+- Временные зоны: для `<input type="datetime-local">` дата приводится к ISO при сохранении. Отображение идёт по локальному времени пользователя.
+
+---
+
+### Что обновлено в этом релизе
+- RU-локализация списка, форм, пагинации и кнопок.
+- Новый аккуратный **Header** (Grid, sticky, a11y).
+- Обновлённый дизайн кнопок и селектов, чипы статусов и категорий.
+- Глобальные дизайн-токены в `globals.css`.
+- Фикс CSS Modules: селекторы сделаны «чистыми» (`.class input` вместо `input`).
+- Исправлено редактирование события (`use client`, `usePathname/useParams`, корректная нормализация даты).

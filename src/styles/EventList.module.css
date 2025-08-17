@@ -1,0 +1,9 @@
+.container {
+    padding: 16px;
+}
+
+.eventCard {
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+    border-radius: 8px;
+}

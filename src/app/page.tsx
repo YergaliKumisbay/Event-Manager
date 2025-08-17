@@ -1,95 +1,59 @@
-import Image from "next/image";
+import Link from "next/link";
 import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+      <div className={styles.page}>
+        <main className={styles.main}>
+          <section className={styles.hero} aria-labelledby="hero-title">
+            <h1 id="hero-title" className={styles.title}>Event Manager</h1>
+            <p className={styles.subtitle}>
+              Минималистичный менеджер мероприятий для команд: создавайте, фильтруйте и управляйте событиями без лишнего визуального шума.
+            </p>
+            <div className={styles.actions}>
+              <Link href="/events" className={`${styles.btn} ${styles.btnPrimary}`}>
+                Перейти к событиям
+              </Link>
+            </div>
+          </section>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <section className={styles.features} aria-label="Возможности">
+            <article className={styles.featureCard}>
+              <div className={styles.featureIcon} aria-hidden="true">
+                {/* календарь */}
+                <svg className={styles.iconSvg} viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="4" width="18" height="17" rx="4" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="M3 9h18" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="M8 4v4M16 4v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              </div>
+              <h3 className={styles.featureTitle}>Создание и редактирование</h3>
+              <p className={styles.featureText}>Добавляйте события с категорией, статусом и датой. Редактируйте и удаляйте с подтверждением.</p>
+            </article>
+
+            <article className={styles.featureCard}>
+              <div className={styles.featureIcon} aria-hidden="true">
+                {/* фильтр/сортировка */}
+                <svg className={styles.iconSvg} viewBox="0 0 24 24" fill="none">
+                  <path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              </div>
+              <h3 className={styles.featureTitle}>Фильтры и сортировка</h3>
+              <p className={styles.featureText}>Фильтруйте по категории и статусу, сортируйте по дате и названию, ищите по тексту.</p>
+            </article>
+
+            <article className={styles.featureCard}>
+              <div className={styles.featureIcon} aria-hidden="true">
+                {/* избранное */}
+                <svg className={styles.iconSvg} viewBox="0 0 24 24" fill="none">
+                  <path d="M12 17.27l5.18 3.13-1.64-5.81L20 10.5l-5.9-.51L12 4.5 9.9 10l-5.9.5 4.46 4.09-1.64 5.81L12 17.27z" stroke="currentColor" strokeWidth="1.3" fill="none"/>
+                </svg>
+              </div>
+              <h3 className={styles.featureTitle}>Избранные события</h3>
+              <p className={styles.featureText}>Помечайте важные события и открывайте их быстрее на отдельной вкладке.</p>
+            </article>
+          </section>
+        </main>
+      </div>
   );
 }

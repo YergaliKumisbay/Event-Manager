@@ -1,0 +1,72 @@
+.form {
+    display: grid;
+    gap: 18px;
+    background: var(--card, #fff);
+    padding: 28px 24px;
+    border-radius: 14px;
+    border: 1px solid var(--border, #e5e7eb);
+    max-width: 640px;
+    margin: 0 auto;
+    color: #0d0529;
+}
+
+.formGroup {
+    display: grid;
+    gap: 6px;
+}
+
+.formGroup label {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* инпуты и селекты только внутри группы */
+.formGroup input,
+.formGroup textarea,
+.formGroup select {
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus,
+.formGroup select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+.formGroup textarea {
+    resize: vertical;
+}
+
+.error {
+    border-color: #e53935 !important;
+}
+
+.errorText {
+    color: #e53935;
+    font-size: 0.85rem;
+}
+
+.formActions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+@media (max-width: 640px) {
+    .form {
+        padding: 20px;
+    }
+    .formActions {
+        flex-direction: column-reverse;
+    }
+    .formActions button {
+        width: 100%;
+    }
+}

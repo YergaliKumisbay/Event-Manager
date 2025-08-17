@@ -1,0 +1,177 @@
+.eventList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.headerControls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.label {
+    font-size: 0.9rem;
+    opacity: 0.75;
+}
+
+.eventCard {
+    background: var(--card, #fff);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: transform 0.2s, box-shadow 0.25s;
+}
+
+.eventCard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.eventHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 8px;
+}
+
+.eventTitle {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.favoriteStar {
+    color: gold;
+    font-size: 1.5rem;
+}
+
+.eventDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.95rem;
+    color: var(--muted, #555);
+}
+
+.description {
+    margin-top: 6px;
+    font-style: italic;
+    color: var(--muted, #777);
+}
+
+/* красивые бейджи */
+.chip {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.categoryChip {
+    background: rgba(59, 130, 246, 0.1);
+    color: #2563eb;
+}
+
+.planned {
+    background: rgba(16, 185, 129, 0.12);
+    color: #059669;
+}
+
+.completed {
+    background: rgba(239, 68, 68, 0.12);
+    color: #dc2626;
+}
+
+.eventActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.select {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+    min-width: 90px;
+}
+
+.empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: #888;
+    grid-column: 1 / -1;
+}
+
+.pagination {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.pageBtn {
+    appearance: none;
+    border: 1px solid var(--border, #e5e7eb);
+    background: var(--bg-2, #f8fafc);
+    color: inherit;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .12s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+}
+
+.pageBtn:hover {
+    transform: translateY(-1px);
+    background: var(--bg, #fff);
+}
+
+.pageBtn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--ring, rgba(37,99,235,.25));
+    border-color: #2563eb;
+}
+
+.pageBtn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.pageInfo {
+    padding: 6px 12px;
+    border: 1px solid var(--border, #e5e7eb);
+    background: var(--card, #fff);
+    color: var(--muted, #667085);
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+/* тёмная тема */
+@media (prefers-color-scheme: dark) {
+    .pageBtn { background: #1a1f29; border-color: #2b3340; }
+    .pageBtn:hover { background: #171c25; }
+    .pageInfo { background: #0f172a; border-color: #2b3340; color: #9ca3af; }
+}
